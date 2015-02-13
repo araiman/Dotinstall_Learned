@@ -68,9 +68,9 @@
 #07 Materialを使ってみよう
 - GameObjectの色を変える
 	- Asset
-		- Material
-			- Inspectorの、色を変える
-				- AssetのMaterialをGameObjectにドラッグ＆ドロップ
+	- Material
+	- Inspectorの、色を変える
+	- AssetのMaterialをGameObjectにドラッグ＆ドロップ
 
 - 画像のはりつけ
 	- Asset
@@ -81,12 +81,14 @@
 #08 Rigidbodyを使ってみよう
 - 物理特性の付与（重さとか）
 	- add component
-		- physics
+	- physics
+	- rigidbody（物理特性）
 
 - 弾性をつける
 	- Asset
-		- Material
-			- Physics Material
+	- Material
+	- Physics Material
+	- Bouncinessの値を、0より大きくする
 
 #09 Directional Lightを追加しよう
 
@@ -99,10 +101,12 @@
 
 #10 GameObjectを階層化してみよう
 
-- 複数のオブジェクトを同時に動かす
+- 階層化の効用
+	- 親と子を同時に動かせる
+
+- 階層化の方法	
 	- ドラッグ＆ドロップで、合体させる。
 
-- カーレースの、車にカメラを付けて、同時に動かしたい時とか。
 - GameObjectのフォルダを作る
 	- GameObject
 		- Create Empty
@@ -110,10 +114,13 @@
 #11 Prefabを使ってみよう
 
 - prefabとは
-	- 再利用な可能な、部品にする。こと
+	- 再利用な可能な、部品。
 
-- やり方
+- オブジェクトを、Prefabにするやり方
 	- Assetにドラッグする
+
+- Prefabの効用
+	- 一気に、複数のオブジェクトに変更を加えることが出来る
 
 
 #12 Scriptを追加してみよう
@@ -144,7 +151,7 @@
 	- var 変数名 : 型 = 初期値
     	-var x : int = 5
 
-- 関数の外の変数
+- 関数の外で宣言された変数
 	- Inspectorから変更することができる。
 
 #14 GameObjectを移動させてみよう
@@ -166,3 +173,76 @@ if(Input.GetButtonUp("Jump")){
 	Debug.log("Jumped");  
 }
 </code>
+
+- それぞれのボタンに割り当てられている名前を確認する方法
+	- メニューバー
+	- Edit
+	- Project Settings
+	- Input
+
+
+#16 衝突判定をしてみよう
+- 衝突の時に、実行する関数名
+	- OnCollisionEnter()
+
+- 当たった、オブジェトの判定
+	- <code>OnCollisonEnter(obj : collision){  
+		if(obj.gameObject.name == "RightWall"){  
+			Debug.Log("Right Hit!");  
+		} 
+	  } 
+	  </code>
+
+
+#17 動的にGameObjectを生成しよう
+- Prefabから動的に生成する方法
+	- EmptyのGameObjectを用意
+	- 動的に生成したいモノのPrefabを作る
+	- コードを記述する
+		- <code>
+			var ball : Transform;  
+			function Update () {  
+				if(Input.GetButtonUp("Jump")) {  
+					Instantiate(ball, transform.position, transform.rotation); 
+				}  
+			}  
+		  </code>
+
+
+#18 OnGUIを使ってみよう
+- 別のシーンの呼び出し
+	- Scriptを作成
+
+		- <code>
+			var style : GUIStyle;  
+			function OnGUI () {  
+				GUI.Label(Rect(10, 10, 200, 50), "GameOver", style);  
+			}  
+  		</code>
+
+
+#19 別のSceneを呼び出してみよう
+- Scriptで、呼び出し。
+	- <code>  
+		function Update () {  
+			if(Input.GetButtonUp("Jump")) {  
+				Instantiate(ball, transform.position,   transform.rotation);  
+				n++;  
+				if(n > 10){  
+					Application.LoadLevel("GameOver");  
+				}  
+			}  
+		}  
+
+	  </code>
+
+- BuildSettingsで、Sceneを順番通りに追加
+
+
+#20 ゲームを書きだしてみよう
+- BuildSettings
+- BUild
+
+
+#23 Enemyの設定をしていこう
+- Cubeが回転しながら落ちてくる、というScriptを書く
